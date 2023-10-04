@@ -1,0 +1,31 @@
+#python scripts/search_neighbors.py --rconfig configs/dataset_builder/openimages.yaml --qc configs/query_datasets/imagenet.yaml -s validation -n
+# 这个是为了构建 embeddings 的数据集
+model:
+  target: scripts.embeddings.ClipEncoder
+  params:
+    save_dir: root/
+    device: cuda
+    mode: "image"
+
+
+data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 42
+    num_workers: 5
+    wrap: false
+    train:
+      target: data.datasets.shhq_train
+      params:
+        source_root: str which  is the path of the datasets
+#        transform:  这个先暂时弃用
+#          target:data.transform.img_tranform
+#          params:{}
+    validation:
+      target: data.shhq.shhq_val
+      params:
+        source_root: str which is the path of the datasets
+
+
+
+

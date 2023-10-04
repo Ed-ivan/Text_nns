@@ -1,0 +1,125 @@
+/*
+衣物文本数据集 (CPT)-V1
+*/
+T-shirt   ,   jeans
+T-shirt  ,Shorts
+Sleeveless top , jeans
+Sleeveless top, skirts,single-color outfits
+ tailored pants,neutral colors
+ floral dress, white minimalist top   (碎花裙 ， 白色简约上衣)
+ white minimalist top , jeans
+skirts,single-color outfits,white minimalist top
+crop top,high-waisted jeans(短款上衣，高腰牛仔裤)
+crop top,jeans
+Sleeveless top,high-waisted jeans
+sleeveless top, high-waisted denim shorts (高腰牛仔短裤)
+long dress , single-color outfits  (长裙,纯色的外搭)
+white minimalist top ,skirts
+white off-shoulder top,denim  jeans (白色露肩上衣，)
+off-shoulder top,skirts  露肩上衣 ， 裙子
+straight-leg trousers,T-shirt  (直筒裤， )
+pleated skirt, simple white T-shirt(百褶裙， 白色T-shirt)
+pleated skirt,off-shoulder top
+pleated skirt,Sleeveless top
+single-color oversized sweatshirt,high-waisted jeans (纯色卫衣，高腰牛仔裤)
+knit dress , (针织裙) ,Sleeveless top
+knit dress,single-color outfits
+crop top,knit dress
+white minimalist T-shirt,knit dress
+long-sleeve shirt, (长袖) ,high-waisted jeans
+long-sleeve shirt,skirts,single-color
+pants, white minimalist T-shirt
+denim shorts,crop top  牛仔短裤， 短款上衣，
+sundress (连衣裙)
+floral sundress
+sundress, single-color outfits
+jeans , single-color T-shirt ,  outfits
+Capri pants,T-shirt ,  九分裤 ，
+Capri pants,white off-shoulder top
+crop top,Capri pants
+long-sleeve shirt,Capri pants
+Mini dress,long-sleeve shirt
+Mini dress,T-shirt
+Mini dress,off-shoulder top
+Sleeveless top,Mini dress
+Long-sleeved top,denim shorts
+Blouse,jeans
+Blouse,pants
+ hat
+ hat,pants
+ hat, T-shirt
+ hat, jeans
+ hat,T-shirt,jeans
+ hat,off-shoulder top
+ Demin skirt,hat
+ A-line skirt   A 字裙
+ Denim skirt  ,牛仔短裙
+Demin skirt ,crop top
+Demin skirt ,off-shoulder top
+Sleeveless top,Demin skirt  (无袖外套 ， 牛仔裙)
+Sweatpants， 运动裤，T-shirts
+sleeveless midi dress
+sleeveless midi dress,single-color outfits
+blue denim shorts,white printed t-shirt
+blue denim shorts,Sleeveless top  牛仔短裤
+wide-leg pants 宽腿裤 ， T-shirts
+Sleeveless blouse, pencil skirt (无袖衬衫，铅笔裙)
+Sleeveless blouse, single-color outfits (无袖衬衫，单色套装)
+Sleeveless top, tailored pants (无袖上衣，修身长裤)
+Sleeveless top, tailored pants,single-color outfits
+Sleeveless dress,  minimalist top (无袖连衣裙，白色简约上衣)
+Sleeveless top, high-waisted skirt (无袖上衣，高腰裙子)
+Sleeveless blouse, neutral colors (无袖衬衫，中性色调)
+Maxi dress (长款连衣裙)
+maxi dress , single-color outfits
+Off-the-shoulder dress(露肩裙)
+Off-the-shoulder dress,single-color outfits
+Polo shirt, jeans(polo 衫， 牛仔裤)
+Denim jacket ,jeans
+Denim jacket
+Denim jacket ,pants
+Graphic T-shirt, Denim shorts
+pants,Graphic T-shirt
+wide-leg pants ,Graphic T-shirt
+Button-front dress (前开衩连衣裙)
+Button-front dress,single-color outfits
+sweatshirt, pants (卫衣)
+sweatshirt,jeans
+Denim shorts,sweatshirt
+White tank top, Denim shorts (白色背心上衣，牛仔短裤)
+White tank top,denim jeans
+White tank top,pants
+Striped crop top, High-waisted jeans (条纹短上衣，高腰牛仔裤)
+Striped crop top,jeans
+Striped crop top,denim jeans
+Basic  blouse, Black pants (基本款白色衬衫，黑色长裤)
+Striped T-shirt, Denim skirt (条纹T恤，牛仔裙)
+Striped long-sleeve shirt,  shorts (条纹长袖衬衫，短裤)
+long-sleeve shirt, shorts (长袖衬衫，短裤)
+long-sleeve shirt,Denim jeans
+long-sleeve shirt,skirt
+long-sleeve shirt A-ling skirt
+long-sleeve shirt,denim skirt
+
+
+---------------------鞋 (这个可以是最后的generation中来实现 )
+heels (高跟鞋)
+flats(平底鞋)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

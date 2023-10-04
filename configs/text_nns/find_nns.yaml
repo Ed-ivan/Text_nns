@@ -1,0 +1,25 @@
+# 这个是为了给定 text找到对应的 embeddings
+model:
+  target:
+    {}
+  params:
+    retriever_config:
+      target: rdm.modules.retrievers.ClipImageRetriever
+      params:
+        model: ViT-B/32
+        device: cuda
+    img_embeddins_config:
+      target: data.datasets.LatentsDataset
+      params:
+        latents_path: str # which is the  path of the latent-code ()
+    query_config:
+      target: data.datasets.LatentsDataset
+      params:
+        latents_path: str # which is the  path of the latent-code ()
+    save_dir: dataset/text_nns/
+#    img_embedding_root:"" 应该通过构造数据集的方式来
+#    text_embedding_root:""
+  # python scripts/search_neighbors.py --rconfig configs/dataset_builder/openimages.yaml --qc configs/query_datasets/imagenet.yaml -s validation -n
+
+
+
