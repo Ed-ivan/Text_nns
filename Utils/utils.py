@@ -30,6 +30,7 @@ def make_dataset(dir):
     return images
 
 
-def save_embeddings(filepath,output):
+def save_embeddings(filepath,output,output_id):
+    data = {'embeddings': output, 'content_id': output_id}
     with open(filepath,'wb') as f:
-        pickle.dump(output,f)
+        pickle.dump(data,f)

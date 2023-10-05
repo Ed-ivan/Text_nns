@@ -6,6 +6,7 @@ save_dir :保存的路径
 (查看)find_nns .yaml文件
 '''
 import os
+import torch
 import pickle
 import sys
 from torch.utils.data import DataLoader, Dataset, Sampler, Subset

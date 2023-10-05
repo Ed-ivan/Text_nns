@@ -257,25 +257,22 @@ class DatasetBuilder(object):
             # 这里我准备实现为 加载 Text 对应的 embeddings
             for batch in (pbar := tqdm(loader, desc='loading feature embeddings',
                                        total=total)):
-                if 'patch' in batch:
-                    patches = batch['patch']
-                else:
-                    if self.save_embeddings:
-                        self.save_datapool(postfix=f'part_{part}')
-                        self.reset_data_pool()
-                    break
-                # img_ids = rearrange(batch['img_id'], 'b n -> (b n)').numpy()
-                # patch_coords = rearrange(batch['patch_coords'], 'b n k -> (b n) k').numpy()
-                img_ids = batch['img_id'].numpy()
-                patch_coords = batch['patch_coords'].numpy()
+                embeddings,img_ids=batch
+                # if 'patch' in batch:
+                #     patches = batch['patch']
+                # else:
+                #     if self.save_embeddings:
+                #         self.save_datapool(postfix=f'part_{part}')
+                #         self.reset_data_pool()
+                #     break
+                # img_ids = batch['img_id'].numpy()
 
                 # reshaping required for scaNN, see https://github.com/google-research/google-research/blob/aca5f2e44e301af172590bb8e65711f0c9ee0cfd/scann/scann/scann_ops/py/scann_ops.py
                 start = time.time()
-                embeddings = self.embed(patches)
+                # 那么目前的思路是loader中直接是Data.datasets.latentsDataset
                 delta = (time.time() - start)
                 deltas.append(delta)
                 deltas_per_sec.append(delta/embeddings.shape[0])
-                self.data_pool['patch_coords'].append(patch_coords)
                 self.data_pool['img_id'].append(img_ids)
                 self.data_pool['embedding'].append(embeddings)
                 n_examples += embeddings.shape[0]
@@ -365,47 +362,19 @@ class DatasetBuilder(object):
         start = time.time()
         nns, distances = self.searcher.search_batched(query_embeddings, final_num_neighbors=k)
         end = time.time()
-
+        # nns 更像是 返回的 ids
         out_embeddings = self.data_pool['embedding'][nns]
         out_img_ids = self.data_pool['img_id'][nns]
-        out_pc = self.data_pool['patch_coords'][nns]
         # 这里需要大改啊 ， 因为并没有返回 patch_coords
         out = {'embeddings': out_embeddings,
                'img_ids': out_img_ids,
-               'patch_coords':out_pc,
                'queries': queries,
                'exec_time': end - start,
                'nns': nns,
                'q_embeddings': query_embeddings_}
 
-        if visualize is None:
-            visualize = self.visualize
-
-        if visualize: #or self.additional_embedders is not None:
-            patches = self.get_nn_patches(nns)
-            out.update({'nn_patches': patches})
-
-            # if self.additional_embedders is not None:
-            #     patches = rearrange(torch.from_numpy(patches))
-            #     for key in self.additional_embedders:
-            #         with torch.no_grad():
-
-
         return out
 
-    def search_bruteforce(self, searcher):
-        return searcher.score_brute_force().build()
-
-    def search_partioned_ah(self, searcher, dims_per_block, aiq_threshold, reorder_k,
-                            partioning_trainsize, num_leaves, num_leaves_to_search):
-        return searcher.tree(num_leaves=num_leaves,
-                             num_leaves_to_search=num_leaves_to_search,
-                             training_sample_size=partioning_trainsize). \
-            score_ah(dims_per_block, anisotropic_quantization_threshold=aiq_threshold).reorder(reorder_k).build()
-
-    def search_ah(self, searcher, dims_per_block, aiq_threshold, reorder_k):
-        return searcher.score_ah(dims_per_block, anisotropic_quantization_threshold=aiq_threshold).reorder(
-            reorder_k).build()
 
     def train_searcher(self, k=None,
                        metric=None,

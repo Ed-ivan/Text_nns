@@ -1,5 +1,4 @@
 import os.path
-
 from torch.utils.data import Dataset
 from PIL import Image
 from Utils.ldm_utils import instantiate_from_config
@@ -41,22 +40,27 @@ class SHHQ_Train(SHHQDataset):
             self.transform=instantiate_from_config(transform)
         self.flag=flag
     def __getitem__(self, index):
-        im=super().__getitem__(index)
+        im,img_name=super().__getitem__(index)
         assert  self.flag is  'train','something goes wrong!'
         im=self.transform.get_transforms[self.flag](im)
-
-        return im
+        return im,img_name
 
 class SHHQ_Val(SHHQDataset):
     # not  implement well
     def __init__(self, source_root):
         super(SHHQ_Train, self).__init__(source_root)
 
-class LatentsDataset(Dataset):
     '''
     latent 中存储的是embeddings , img_name
-    需要通过这个构建 data_pool ,
+    所以这个地方还需要 修改一下 ， 加上 img_name 但是应该怎么构造呢 ？
+    (需要通过这个构建 data_pool), 先假设
+     for batch in (pbar := tqdm(loader, desc='loading feature embeddings',
+                                       total=total)):
+                if 'patch' in batch:
+                    patches = batch['patch']
     '''
+class LatentsDataset(Dataset):
+
     def __init__(self, latents_path):
         self.latent_path=latents_path
         self.latents=torch.load(self.latent_path)
@@ -65,7 +69,10 @@ class LatentsDataset(Dataset):
         return self.latents.shape[0]
 
     def __getitem__(self, index):
-        return self.latents[index]
+        latents=self.latents[index]
+        embeddings=latents['embeddings']
+        ids=latents['content_ids']
+        return embeddings,ids
 
 
 
