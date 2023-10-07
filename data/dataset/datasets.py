@@ -72,6 +72,7 @@ class LatentsDataset(Dataset):
         latents=self.latents[index]
         embeddings=latents['embeddings']
         ids=latents['content_ids']
+        # 有了  这个id就可以找到 对应的latent 对应的原始内容
         return embeddings,ids
 
 

@@ -1,13 +1,16 @@
 /*
-衣物文本数据集 (CPT)-V1
+衣物提示数据集 (CPD)-V1
 */
 T-shirt   ,   jeans
 T-shirt  ,Shorts
+straight-leg pants,T-shirt
+Plain T-shirt, jeans (简约t-shirt)
 Sleeveless top , jeans
 Sleeveless top, skirts,single-color outfits
- tailored pants,neutral colors
- floral dress, white minimalist top   (碎花裙 ， 白色简约上衣)
- white minimalist top , jeans
+Sleeveless top, shorts
+tailored pants,neutral colors
+floral dress, white minimalist top   (碎花裙 ， 白色简约上衣)
+white minimalist top , jeans
 skirts,single-color outfits,white minimalist top
 crop top,high-waisted jeans(短款上衣，高腰牛仔裤)
 crop top,jeans
@@ -52,13 +55,15 @@ Blouse,pants
  hat,T-shirt,jeans
  hat,off-shoulder top
  Demin skirt,hat
- A-line skirt   A 字裙
- Denim skirt  ,牛仔短裙
+A-line skirt   A 字裙
+Denim skirt  ,牛仔短裙
 Demin skirt ,crop top
 Demin skirt ,off-shoulder top
 Sleeveless top,Demin skirt  (无袖外套 ， 牛仔裙)
 Sweatpants， 运动裤，T-shirts
 sleeveless midi dress
+Midi dress ,crop top
+Midi dress ,T-shirts
 sleeveless midi dress,single-color outfits
 blue denim shorts,white printed t-shirt
 blue denim shorts,Sleeveless top  牛仔短裤
@@ -78,6 +83,7 @@ Polo shirt, jeans(polo 衫， 牛仔裤)
 Denim jacket ,jeans
 Denim jacket
 Denim jacket ,pants
+single-color jacket
 Graphic T-shirt, Denim shorts
 pants,Graphic T-shirt
 wide-leg pants ,Graphic T-shirt
@@ -100,6 +106,11 @@ long-sleeve shirt,Denim jeans
 long-sleeve shirt,skirt
 long-sleeve shirt A-ling skirt
 long-sleeve shirt,denim skirt
+coat,pants
+coat,jeans
+coat,demin jeans
+Hoodie, joggers (运动卫衣 ， 运动裤)
+sneakers,Hoodie
 
 
 ---------------------鞋 (这个可以是最后的generation中来实现 )

@@ -71,8 +71,6 @@ class DatasetBuilder(object):
         if self.chunk_size is not None:
             assert self.chunk_size % batch_size == 0, '"batch_size" has to evenly divide "chunk_size", if the latter is specified'
             assert self.chunk_size < self.max_pool_size
-        if self.saved_embeddings:
-            self.load_embeddings()
         self.searcher = None
         self.savepath_postfix = savepath_postfix
         self.searcher_savedir = searcher_savepath
@@ -109,37 +107,6 @@ class DatasetBuilder(object):
         return out_data
 
 
-
-    def load_embeddings(self):
-        if len(self.data_pool['embedding']) > 0:
-            return
-        print(f'Load saved patch embedding from "{self.saved_embeddings}"')
-        # set timestamp to the appropriate value
-        self.timestamp = '-'.join(self.saved_embeddings.rstrip('/').split('/')[-1].split('-')[:5])
-        print(f'Setting timestamp to "{self.timestamp}"')
-        if not os.path.isdir(self.saved_embeddings) and 'compvis-nfs/user/ablattma/projects/sbgm/ldm/logs/retrieval_datasets' in self.saved_embeddings:
-            print('*' * 50, "WARNING", '*' * 50)
-            print(f'Directory {self.saved_embeddings} has been moved, remapping base path')
-            print('*' * 110)
-            reldirname = self.saved_embeddings.split('compvis-nfs/user/ablattma/projects/sbgm/ldm/logs/retrieval_datasets/')[-1].strip('/')
-            self.saved_embeddings = '/export/compvis-nfs/group/datasets/retrieval_datasets/' + reldirname
-            print(f'remapped path is {self.saved_embeddings}')
-            if not os.path.isdir(self.saved_embeddings):
-                raise ValueError(f'no database found under remapped path {self.saved_embeddings}. Please check or change config manually')
-        if os.path.isfile(self.saved_embeddings):
-            self.load_single_file(self.saved_embeddings)
-        elif os.path.isdir(self.saved_embeddings):
-            files = glob(os.path.join(self.saved_embeddings,'*.npz'))
-            if len(files) == 1:
-                self.load_single_file(files[0])
-            else:
-                data = [np.load(f) for f in files]
-                prefetched_data = parallel_data_prefetch(self.load_multi_files,data,
-                                                         n_proc=min(len(data),cpu_count()),target_data_type='dict')
-                self.data_pool = {key: np.concatenate([od[key] for od in prefetched_data],axis=1)[0] for key in self.data_pool}
-        else:
-            raise ValueError(f'Embeddings string "{self.saved_embeddings}" nor directory neither file --> check this.')
-        print(f'Finished loading of retrieval database of length {self.data_pool["embedding"].shape[0]}.')
 
     def save_datapool(self,postfix:str=None):
         print(f'Save embeddings...')
@@ -361,6 +328,7 @@ class DatasetBuilder(object):
 
         start = time.time()
         nns, distances = self.searcher.search_batched(query_embeddings, final_num_neighbors=k)
+        # 所以啊 ， 应该 就是在data_pool 里面找 。
         end = time.time()
         # nns 更像是 返回的 ids
         out_embeddings = self.data_pool['embedding'][nns]
